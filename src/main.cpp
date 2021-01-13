@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 
@@ -7,29 +8,27 @@ using namespace std;
 int main()
 {
   // Variables
+  stringstream ss; // Will be used as a output str
   string input; // full name
-  string output;
-  bool first = true; // needs in for cycle
+  bool first = true; // needs in "for" cycle
+  size_t it = 0;
 
   cout << "Enter the full name: ";
-  cin >> input;
+  getline(cin, input);
 
-  for (const auto i : input)
+  while (input[it])
   {
-    if (first) // If this is the first char in string input
+    if (first)
     {
-      output += i;
-    } else {
-      if (i == ' ') // FIXME
-      {
-        output += '.' + input[i + 1];
-      }
+      ss << char(toupper(input[it]));
+    } else if (input[it] == ' ') {
+      ss << "." << char(toupper(input[++it]));
     }
-    
-    first = false;
 
+    first = false;
+    ++it;
   }
   
-  cout << output << endl;
+  cout << ss.str() << endl;
   return 0;
 }
